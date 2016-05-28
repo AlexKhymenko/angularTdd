@@ -4,22 +4,35 @@
 
 import mainCtrl from '../../../app/directives/directives';
 
-describe('Main controller', () => {
+describe('Directive', () => {
     let ctrl;
     let scope;
 
+/*
     beforeEach(angular.mock.module('AngularES6App'));
+*/
     beforeEach(angular.mock.module('directives'));
 
-    var controller;
+    var controller, element;
 
     beforeEach(inject(($controller, $rootScope, $compile) => {
         scope = $rootScope.$new();
-        var element = $compile('<test-dir></test-dir>')(scope);
-        scope.$digest();
-        controller = element.controller('testDir');
+        var testArray = [];
+        scope.test = [];
+        scope.nice = 'green1';
+        scope.vm = {
+          test: 'nice'
+        };
+        element = $compile('<test-dir test="{{nice}}"></test-dir>')(scope);
 
-        console.log(element);
+        scope.$apply();
+
+/*
+        scope.$digest();
+*/
+        console.log(ctrl);
+        // controller = element.controller('testDir', {}, {test: []});
+        controller = element.controller('testDir');
     }));
 
     it('should set application name on controller', () => {
@@ -28,7 +41,25 @@ describe('Main controller', () => {
 
     it('controller should be defined', () => {
         "use strict";
+        console.log('controller', controller);
         expect(controller).toBeDefined();
+     /*   expect(element.text()).toBe('453345345');
+        expect(controller).not.toBeNull();*/
+        // expect(element.scope().vm.test).toBe('green');
+        expect(controller.test).toBeDefined();
+
 
     });
+
+    it('testArray should be defined', () => {
+        "use strict";
+        console.log('controller1', controller.test);
+        console.log('controller1');
+        expect(controller.test).toBeDefined();
+    });
+
+    it('controller test isolate property should be green', () => {
+        "use strict";
+        expect(controller.test).toBe('green1');
+    })
 });

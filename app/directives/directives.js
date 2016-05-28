@@ -10,16 +10,20 @@ angular.module('directives')
     function testDirective() {
         "use strict";
         return {
+            scope: true,
             restrict: 'E',
             bindToController: {
-
+                test: '@'
             },
+            controller: testController,
+            // templateUrl: 'directives/testDir.html',
+            template: '<div>nice Im here   {{vm.test}}</div>',
             controllerAs: 'vm',
-            controller: testController
         }
     }
 
     function testController() {
         "use strict";
-
-    }
+        var vm = this;
+        vm.test = 34534;
+        }
