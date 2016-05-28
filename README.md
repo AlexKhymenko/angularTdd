@@ -1,0 +1,1 @@
+The project is dedicated to boost skills in TDD with angularjs.
