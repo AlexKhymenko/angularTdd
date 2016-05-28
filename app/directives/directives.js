@@ -4,7 +4,8 @@ angular.module('directives', []);
 
 
 angular.module('directives')
-    .directive('testDir', testDirective);
+    .directive('testDir', testDirective)
+    .controller('tddTestController', tddTestController);
 
 
     function testDirective() {
@@ -16,32 +17,34 @@ angular.module('directives')
                 test: '@',
                 number: '='
             },
-            controller: testController,
+            controller: 'tddTestController',
             // templateUrl: 'directives/testDir.html',
             template: '<div>nice Im here   {{vm.test}}</div>',
-            controllerAs: 'vm',
+            controllerAs: 'vm'
         }
     }
 
-    function testController() {
+    function tddTestController() {
         "use strict";
         var vm = this;
-
-        activate();
-
-
-        function activate() {
-            vm.doubleNumber = vm.number * 2;
-        }
-
+        vm.doubleNumber = vm.number * 2;
     }
 
 
-angular.module('directives').
-controller('tddTestController', tddTestController);
+angular.module('directives')
+    .directive('tddChangeColour', tddChangeColour);
 
-function tddTestController() {
-    "use strict";
-    var vm = this;
-    vm.doubleNumber = vm.number * 2;
-}
+    function tddChangeColour() {
+        "use strict";
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs, controller, transclude) {
+                element.on('mouseenter', function() {
+                    element.css('color', 'green');
+                });
+                element.on('mouseleave', function() {
+                    element.css('color', 'red');
+                })
+            }
+        }
+    }
