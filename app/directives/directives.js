@@ -13,7 +13,8 @@ angular.module('directives')
             scope: true,
             restrict: 'E',
             bindToController: {
-                test: '@'
+                test: '@',
+                number: '='
             },
             controller: testController,
             // templateUrl: 'directives/testDir.html',
@@ -25,5 +26,22 @@ angular.module('directives')
     function testController() {
         "use strict";
         var vm = this;
-        vm.test = 34534;
+
+        activate();
+
+
+        function activate() {
+            vm.doubleNumber = vm.number * 2;
         }
+
+    }
+
+
+angular.module('directives').
+controller('tddTestController', tddTestController);
+
+function tddTestController() {
+    "use strict";
+    var vm = this;
+    vm.doubleNumber = vm.number * 2;
+}

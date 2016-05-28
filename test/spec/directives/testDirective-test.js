@@ -20,10 +20,11 @@ describe('Directive', () => {
         var testArray = [];
         scope.test = [];
         scope.nice = 'green1';
+        scope.number = 2;
         scope.vm = {
           test: 'nice'
         };
-        element = $compile('<test-dir test="{{nice}}"></test-dir>')(scope);
+        element = $compile('<test-dir test="{{nice}}" number="number"></test-dir>')(scope);
 
         scope.$apply();
 
@@ -32,7 +33,15 @@ describe('Directive', () => {
 */
         console.log(ctrl);
         // controller = element.controller('testDir', {}, {test: []});
+/*
         controller = element.controller('testDir');
+*/
+        var data = {
+            number: 2,
+            nice: 'green1',
+            test: []
+        };
+        controller = $controller('tddTestController', {}, data)
     }));
 
     it('should set application name on controller', () => {
@@ -60,6 +69,27 @@ describe('Directive', () => {
 
     it('controller test isolate property should be green', () => {
         "use strict";
-        expect(controller.test).toBe('green1');
-    })
+        expect(controller.nice).toBe('green1');
+    });
+
+    it('number should be defined', () => {
+        "use strict";
+        expect(controller.number).toBeDefined();
+    });
+
+    it('number should be 2', () => {
+        "use strict";
+        expect(controller.number).toBe(2);
+    });
+
+    it('double number should be defined', () => {
+        "use strict";
+        expect(controller.doubleNumber).toBeDefined();
+    });
+
+    it('double number should be 4', () => {
+        "use strict";
+        expect(controller.doubleNumber).toBe(4);
+    });
+
 });
